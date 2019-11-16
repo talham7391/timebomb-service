@@ -44,23 +44,23 @@ test("right number of good and bad in 8 players", () => {
 test("right number of wires", () => {
     for (let i = constants.MIN_NUM_PLAYERS; i <= constants.MAX_NUM_PLAYERS; i++) {
         const wires = utils.getNumberOfWires(i);
-        expect(wires.defuses).toBe(i);
+        expect(wires.defuse).toBe(i);
         expect(wires.bomb).toBe(1);
-        expect(wires.duds).toBe(i * constants.NUM_CARDS_STARTING_ROUND - 1 - wires.defuses);
+        expect(wires.dud).toBe(i * constants.NUM_CARDS_STARTING_ROUND - 1 - wires.defuse);
     }
 });
 
 test("wire numbers to list", () => {
     const types = {
-        "defuses": 0,
-        "duds": 0,
-        "bomb": 0,
+        defuse: 0,
+        dud: 0,
+        bomb: 0,
     };
     const numWires = utils.getNumberOfWires(6);
     const wires = utils.wireNumbersToList(numWires);
     _.each(wires, wire => { types[wire] += 1 });
-    expect(types.defuses).toBe(numWires.defuses);
-    expect(types.duds).toBe(numWires.duds);
+    expect(types.defuse).toBe(numWires.defuse);
+    expect(types.dud).toBe(numWires.dud);
     expect(types.bomb).toBe(numWires.bomb);
 });
 

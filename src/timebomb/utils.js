@@ -35,9 +35,9 @@ function getNumberOfWires(numPlayers) {
     }
     const totalNumberOfWires = constants.NUM_CARDS_STARTING_ROUND * numPlayers;
     return {
-        defuses: numPlayers,
+        defuse: numPlayers,
         bomb: 1,
-        duds: totalNumberOfWires - 1 - numPlayers,
+        dud: totalNumberOfWires - 1 - numPlayers,
     };
 }
 

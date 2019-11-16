@@ -84,5 +84,6 @@ module.exports = {
     createPlayers,
     assignRoles,
     collectRevealedWires,
+    distributeWires,
     redistributeWires,
 };
