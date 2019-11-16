@@ -14,16 +14,16 @@
     2. `sudo apt install npm`
     3. `npm install -g n`
     4. `n lts`
-    5. `n` (and follow the instructions to node)
-    6. `git clone https://github.com/talham7391/timebomb-service.git`
+    5. `n` (and follow the instructions to install node) 
     
 At this point you might need source your bash (or re-SSH into the machine) to see the newly installed node & npm.
 
 ### Running the Service
 
-1. `cd timebomb-service`
-2. `npm install`
-3. `npm start`
+1. `git clone https://github.com/talham7391/timebomb-service.git`
+2. `cd timebomb-service`
+3. `npm install`
+4. `npm start`
 
 At this point, you should be able to reach the service at whatever hostname routes to your VPS. *Be mindful of which port the service is listening on.*
 
@@ -33,3 +33,5 @@ At this point, you should be able to reach the service at whatever hostname rout
 2. `cd timebomb-service`
 3. `npm install`
 4. `npm start`
+
+The service will be reachable at `http://localhost:XXXX`.
