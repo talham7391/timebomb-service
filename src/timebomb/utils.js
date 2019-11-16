@@ -41,7 +41,35 @@ function getNumberOfWires(numPlayers) {
     };
 }
 
+function wireNumbersToList(numbers) {
+    const wires = [];
+    for (let key in numbers) {
+        if (numbers.hasOwnProperty(key)) {
+            _.each(_.range(numbers[key]), () => { wires.push(key) });
+        }
+    }
+    return wires;
+}
+
+function randomlyDecrementValueForKey(mapObject) {
+    const flattenedMap = [];
+    _.each(mapObject, (value, key) => {
+        _.each(_.range(value), () => {
+            flattenedMap.push(key);
+        });
+    });
+    if (flattenedMap.length === 0) {
+        return [mapObject, undefined];
+    }
+    const decrementedObject = _.cloneDeep(mapObject);
+    const keyToDecrement = flattenedMap[Math.floor(Math.random() * flattenedMap.length)];
+    decrementedObject[keyToDecrement] -= 1;
+    return [decrementedObject, keyToDecrement];
+}
+
 module.exports = {
     getNumberOfGoodAndBadPlayers,
     getNumberOfWires,
+    wireNumbersToList,
+    randomlyDecrementValueForKey,
 };
