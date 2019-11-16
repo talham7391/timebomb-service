@@ -34,7 +34,7 @@ function collectRevealedWires(players) {
     const revealedWires = {};
     const newPlayers = _.map(players, player => {
         const revealed = _.filter(player.wires, wire => wire.revealed);
-        const notRevealed = _.filter(player.wires, wire => !wire.revealed);
+        const hidden = _.filter(player.wires, wire => !wire.revealed);
         _.each(revealed, wire => {
             if (revealedWires[wire.type] == undefined) {
                 revealedWires[wire.type] = 1;
@@ -44,7 +44,7 @@ function collectRevealedWires(players) {
         });
         return {
             ...player,
-            wires: notRevealed,
+            wires: hidden,
         };
     });
     return [revealedWires, newPlayers];
