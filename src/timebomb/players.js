@@ -50,30 +50,34 @@ function collectRevealedWires(players) {
     return [revealedWires, newPlayers];
 }
 
-function redistributeWires(players) {
-    let wires = {};
-    _.each(players, player => {
-        _.each(player.wires, wire => {
-            if (wires[wire.type] == undefined) {
-                wires[wire.type] = 1;
-            } else {
-                wires[wire.type] += 1;
-            }
-        });
-    });
-
-    const numWires = _.reduce(wires, (result, value) => result + value, 0);
+function distributeWires(players, wiresConfig) {
+    const numWires = _.reduce(wiresConfig, (result, value) => result + value, 0);
     const wiresPerPlayer = numWires / players.length;
     return _.map(players, player => ({
         ...player,
         wires: _.map(_.range(wiresPerPlayer), () => {
-            [wires, type] = utils.randomlyDecrementValueForKey(wires);
+            [wiresConfig, type] = utils.randomlyDecrementValueForKey(wiresConfig);
             return {
                 type,
                 revealed: false,
             };
         }),
     }));
+}
+
+function redistributeWires(players) {
+    let wiresConfig = {};
+    _.each(players, player => {
+        _.each(player.wires, wire => {
+            if (wiresConfig[wire.type] == undefined) {
+                wiresConfig[wire.type] = 1;
+            } else {
+                wiresConfig[wire.type] += 1;
+            }
+        });
+    });
+
+    return distributeWires(players, wiresConfig);
 }
 
 module.exports = {
