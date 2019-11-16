@@ -67,9 +67,22 @@ function randomlyDecrementValueForKey(mapObject) {
     return [decrementedObject, keyToDecrement];
 }
 
+function wiresRevealedOfType(players, type) {
+    let typeRevealed = 0;
+    _.each(players, player => {
+        _.each(player.wires, wire => {
+            if (wire.type === type && wire.revealed) {
+                typeRevealed += 1;
+            }
+        });
+    });
+    return typeRevealed;
+}
+
 module.exports = {
     getNumberOfGoodAndBadPlayers,
     getNumberOfWires,
     wireNumbersToList,
     randomlyDecrementValueForKey,
+    wiresRevealedOfType,
 };

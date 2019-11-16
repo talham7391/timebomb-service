@@ -5,3 +5,7 @@ test("enough cards to last max number of rounds", () => {
 });
 
 test("enough cuts per round", () => {});
+
+test("max players greater than min players", () => {
+    expect(constants.MIN_NUM_PLAYERS).toBeLessThanOrEqual(constants.MAX_NUM_PLAYERS);
+});
