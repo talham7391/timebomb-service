@@ -13,6 +13,10 @@ function createRoom(io) {
     return id;
 }
 
+function doesRoomExist(roomId) {
+    return !(rooms[roomId] == null);
+}
+
 function newRoomId() {
     if (init === false) {
         const numDigits = 4;
@@ -55,4 +59,5 @@ function newRoom(id, nsp) {
 
 module.exports = {
     createRoom,
+    doesRoomExist,
 };

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const http = require("http");
 const socketio = require("socket.io");
 const rooms = require("./rooms");
@@ -7,7 +8,16 @@ const app = express();
 const server = http.Server(app);
 const io = socketio(server);
 
+app.use(cors());
+
 app.get("/", (req, res) => { res.sendStatus(200) });
+app.get("/check/:roomId", (req, res) => {
+    if (rooms.doesRoomExist(req.params["roomId"])) {
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(404);
+    }
+});
 app.post("/create-game", (req, res) => { res.send(rooms.createRoom(io)); });
 
 module.exports = {

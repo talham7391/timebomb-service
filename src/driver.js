@@ -1,9 +1,7 @@
-const game = require("./timebomb/game");
 
 class Driver {
 
     constructor() {
-        // this.timebomb = game.createGame();
         this.players = {};
     }
 

@@ -21,6 +21,15 @@ test("can connect to created game", async done => {
 
     const id = res.data;
 
+    const check = await axios.get(`${_getServiceUrl()}/check/${id}`);
+    expect(check.status).toBe(200);
+
+    try {
+        await axios.get(`${_getServiceUrl()}/check/${id + 1}`);
+    } catch (err) {
+        expect(err.response.status).toBe(404);
+    }
+
     const socket = io.connect(`${_getServiceUrl()}/${id}`);
     socket.on("connect", () => {
         socket.close();
