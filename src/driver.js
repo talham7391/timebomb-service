@@ -1,7 +1,9 @@
+const g = require("./timebomb/game");
 
 class Driver {
 
     constructor() {
+        this.game = null;
         this.players = {};
     }
 
@@ -31,6 +33,31 @@ class Driver {
             }
         }
         return p;
+    }
+
+    startGame() {
+        this.game = g.createGame(Object.keys(this.players).length);
+        let idx = 0;
+        for (let name in this.players) {
+            this.players[name].index = idx;
+        }
+    }
+
+    getGameState() {
+        if (this.game == null) {
+            return null;
+        }
+
+        return {
+            currentRound: this.game.currentRound,
+            playerIndexWithSnips: this.game.playerIndexWithSnips,
+        };
+    }
+
+    getPlayerInfo(name) {
+        return {
+            index: this.players[name].index,
+        };
     }
 }
 

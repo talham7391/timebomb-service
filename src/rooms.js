@@ -45,6 +45,17 @@ function newRoom(id, nsp) {
         socket.on("set-name", n => {
             name = n;
             nsp.emit("connected-players", driver.connectPlayer(name));
+            nsp.emit("game-state", driver.getGameState());
+            nsp.emit("info", driver.getPlayerInfo(name));
+        });
+
+        socket.on("start-game", () => {
+            driver.startGame();
+            nsp.emit("game-state", driver.getGameState());
+        });
+
+        socket.on("get-info", () => {
+            socket.emit("info", driver.getPlayerInfo(name));
         });
 
         socket.on("disconnect", () => {
