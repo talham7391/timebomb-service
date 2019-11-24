@@ -40,6 +40,7 @@ class Driver {
         let idx = 0;
         for (let name in this.players) {
             this.players[name].index = idx;
+            idx++;
         }
     }
 
