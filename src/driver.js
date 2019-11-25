@@ -56,8 +56,15 @@ class Driver {
     }
 
     getPlayerInfo(name) {
+        if (this.game == null) {
+            return null;
+        }
+
+        const idx = this.players[name].index;
+
         return {
-            index: this.players[name].index,
+            index: idx,
+            data: this.game.players[idx],
         };
     }
 }
