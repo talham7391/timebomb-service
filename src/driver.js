@@ -36,10 +36,11 @@ class Driver {
     }
 
     startGame() {
-        this.game = g.createGame(Object.keys(this.players).length);
+        const connectedPlayers = this.getConnectedPlayers();
+        this.game = g.createGame(connectedPlayers.length);
         let idx = 0;
-        for (let name in this.players) {
-            this.players[name].index = idx;
+        for (let i in connectedPlayers) {
+            this.players[connectedPlayers[i]].index = idx;
             idx++;
         }
     }
@@ -64,7 +65,7 @@ class Driver {
 
         return {
             index: idx,
-            data: this.game.players[idx],
+            data: idx != null ? this.game.players[idx] : null,
         };
     }
 }
