@@ -73,8 +73,7 @@ class Driver {
         if (this.game == null) {
             return;
         }
-
-        this.game.snipWire()
+        this.game.snipPlayerWireIndex(this.players[name].index, index);
     }
 }
 

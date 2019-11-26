@@ -60,7 +60,12 @@ function newRoom(id, nsp) {
         });
 
         socket.on("snip-wire", idx => {
-            driver.snipWire(name, idx);
+            try {
+                driver.snipWire(name, idx);
+                nsp.emit("wire-snipped");
+            } catch(err) {
+                // send err to that socket
+            }
         });
 
         socket.on("disconnect", () => {
