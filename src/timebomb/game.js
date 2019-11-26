@@ -27,7 +27,7 @@ function createGame(numPlayers) {
         currentRound: 1,
 
         isGameOver,
-        snipPlayerWire,
+        snipPlayerWireIndex,
         _randomlySnipPlayerWire,
         numPlayerWiresRevealed,
     };
@@ -52,7 +52,13 @@ function numPlayerWiresRevealed() {
     return count;
 }
 
-function snipPlayerWire(playerIndex) {
+function _randomlySnipPlayerWire(playerIndex) {
+    const hiddenWires = _.filter(this.players[playerIndex].wires, wire => !wire.revealed);
+    const revealIndex = Math.floor(Math.random() * hiddenWires.length);
+    return this.snipPlayerWireIndex(playerIndex, revealIndex);
+}
+
+function snipPlayerWireIndex(playerIndex, wireIndex) {
     if (this.isGameOver()) {
         throw errors.GAME_OVER;
     }
@@ -62,8 +68,19 @@ function snipPlayerWire(playerIndex) {
     if (this.playerIndexWithSnips === playerIndex) {
         throw errors.CANNOT_SNIP_OWN_WIRES;
     }
+    if (wireIndex < 0 || wireIndex >= this.players[playerIndex].wires.length ) {
+        throw errors.WIRE_INDEX_OUT_OF_RANGE;
+    }
+    const hiddenWires = _.filter(this.players[playerIndex].wires, wire => !wire.revealed);
+    if (hiddenWires.length === 0) {
+        throw errors.ALL_PLAYER_WIRES_REVEALED;
+    }
+    if (this.players[playerIndex].wires[wireIndex].revealed) {
+        throw errors.WIRE_ALREADY_REVEALED;
+    }
 
-    const wireSnipped = this._randomlySnipPlayerWire(playerIndex);
+    this.players[playerIndex].wires[wireIndex].revealed = true;
+    const wireSnipped = this.players[playerIndex].wires[wireIndex].type;
 
     this.revealedWires[wireSnipped] += 1;
     this.playerIndexWithSnips = playerIndex;
@@ -75,20 +92,6 @@ function snipPlayerWire(playerIndex) {
     }
 
     return wireSnipped;
-}
-
-function _randomlySnipPlayerWire(playerIndex) {
-    const revealedWires = _.filter(this.players[playerIndex].wires, wire => wire.revealed);
-    const hiddenWires = _.filter(this.players[playerIndex].wires, wire => !wire.revealed);
-    if (hiddenWires.length === 0) {
-        throw errors.ALL_PLAYER_WIRES_REVEALED;
-    }
-
-    const revealIndex = Math.floor(Math.random() * hiddenWires.length);
-    hiddenWires[revealIndex].revealed = true;
-    this.players[playerIndex].wires = revealedWires.concat(hiddenWires);
-
-    return hiddenWires[revealIndex].type;
 }
 
 module.exports = {

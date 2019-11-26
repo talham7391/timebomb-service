@@ -41,10 +41,10 @@ test("can reveal player's wires", () => {
     const g = game.createGame(4);
     g.playerIndexWithSnips = 0;
 
-    expect(() => { g.snipPlayerWire(4) }).toThrow();
-    expect(() => { g.snipPlayerWire(0) }).toThrow();
+    expect(() => { g.snipPlayerWireIndex(4, 0) }).toThrow();
+    expect(() => { g.snipPlayerWireIndex(0, 0) }).toThrow();
 
-    const wireType = g.snipPlayerWire(1);
+    const wireType = g._randomlySnipPlayerWire(1);
     expect(g.revealedWires[wireType]).toBe(1);
     expect(g.playerIndexWithSnips).toBe(1);
 
@@ -57,21 +57,21 @@ test("cannot snip wires once game is over", () => {
     const g = game.createGame(4);
     g.playerIndexWithSnips = 0;
     g.revealedWires.bomb = 1;
-    expect(() => { g.snipPlayerWire(1) }).toThrow();
+    expect(() => { g._randomlySnipPlayerWire(1) }).toThrow();
 });
 
 test("test cannot snip wires if player has no hidden wires", () => {
     const g = game.createGame(4);
     g.playerIndexWithSnips = 0;
     g.players[1].wires = [{type: "dud", revealed: true}];
-    expect(() => { g.snipPlayerWire(1) }).toThrow();
+    expect(() => { g._randomlySnipPlayerWire(1) }).toThrow();
 });
 
 test("number of wires revealed", () => {
     const g = game.createGame(4);
     g.playerIndexWithSnips = 0;
     expect(g.numPlayerWiresRevealed()).toBe(0);
-    g.snipPlayerWire(1);
+    g._randomlySnipPlayerWire(1);
     expect(g.numPlayerWiresRevealed()).toBe(1);
 });
 
@@ -106,12 +106,10 @@ test("sanity by 1000 games", () => {
             while (true) {
                 const nextSnip = Math.floor(Math.random() * numPlayers);
                 try {
-                    g.snipPlayerWire(nextSnip);
+                    g._randomlySnipPlayerWire(nextSnip);
                     break;
-                } catch {}
+                } catch(err) {}
             }
-
-            snipsThisRound += 1;
 
             if (!g.isGameOver() && snipsThisRound === numPlayers) {
                 expect(g.numPlayerWiresRevealed()).toBe(0);

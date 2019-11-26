@@ -59,6 +59,10 @@ function newRoom(id, nsp) {
             socket.emit("info", driver.getPlayerInfo(name));
         });
 
+        socket.on("snip-wire", idx => {
+            driver.snipWire(name, idx);
+        });
+
         socket.on("disconnect", () => {
             if (name != null) {
                 nsp.emit("connected-players", driver.disconnectPlayer(name));

@@ -68,6 +68,14 @@ class Driver {
             data: idx != null ? this.game.players[idx] : null,
         };
     }
+
+    snipWire(name, index) {
+        if (this.game == null) {
+            return;
+        }
+
+        this.game.snipWire()
+    }
 }
 
 module.exports = Driver;
