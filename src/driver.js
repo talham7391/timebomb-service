@@ -53,6 +53,7 @@ class Driver {
         return {
             currentRound: this.game.currentRound,
             playerIndexWithSnips: this.game.playerIndexWithSnips,
+            defusesFound: this.game.revealedWires.defuse,
         };
     }
 
