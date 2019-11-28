@@ -27,7 +27,6 @@ function createGame(numPlayers) {
         currentRound: 1,
 
         isGameOver,
-        whoWon,
         snipPlayerWireIndex,
         _randomlySnipPlayerWire,
         numPlayerWiresRevealed,
@@ -42,16 +41,6 @@ function isGameOver() {
         return true;
     }
     return this.revealedWires.bomb === 1;
-}
-
-function whoWon() {
-    if (!this.isGameOver()) {
-        throw errors.GAME_NOT_OVER;
-    }
-    if (this.currentRound > constants.MAX_NUM_ROUNDS || this.revealedWires.bomb === 1) {
-        return "bad";
-    }
-    return "good";
 }
 
 function numPlayerWiresRevealed() {

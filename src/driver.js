@@ -7,6 +7,10 @@ class Driver {
         this.players = {};
     }
 
+    reset() {
+        this.game = null;
+    }
+
     connectPlayer(name) {
         if (this.players[name] == null) {
             this.players[name] = {
@@ -54,6 +58,7 @@ class Driver {
             currentRound: this.game.currentRound,
             playerIndexWithSnips: this.game.playerIndexWithSnips,
             defusesFound: this.game.revealedWires.defuse,
+            gameOver: this.game.isGameOver(),
         };
     }
 
@@ -76,15 +81,6 @@ class Driver {
         }
         return this.game.snipPlayerWireIndex(this.players[name].index, index);
     }
-
-    getWinningSideIfGameOver() {
-        if (this.game.isGameOver()) {
-            return this.game.whoWon();
-        }
-        return null;
-    }
-
-
 }
 
 module.exports = Driver;

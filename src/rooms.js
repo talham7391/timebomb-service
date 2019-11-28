@@ -54,6 +54,11 @@ function newRoom(id, nsp) {
             nsp.emit("game-started");
         });
 
+        socket.on("new-game", () => {
+            driver.reset();
+            nsp.emit("new-game");
+        });
+
         socket.on("get-info", () => {
             socket.emit("game-state", driver.getGameState());
             socket.emit("info", driver.getPlayerInfo(name));
@@ -63,11 +68,6 @@ function newRoom(id, nsp) {
             try {
                 callback(null, driver.snipWire(name, idx));
                 nsp.emit("wire-snipped");
-
-                const winner = driver.getWinningSideIfGameOver();
-                if (winner != null) {
-                    nsp.emit("game-over", winner);
-                }
             } catch(err) {
                 callback(err, null);
             }
