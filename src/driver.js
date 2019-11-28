@@ -73,8 +73,17 @@ class Driver {
         if (this.game == null) {
             return;
         }
-        this.game.snipPlayerWireIndex(this.players[name].index, index);
+        return this.game.snipPlayerWireIndex(this.players[name].index, index);
     }
+
+    getWinningSideIfGameOver() {
+        if (this.game.isGameOver()) {
+            return this.game.whoWon();
+        }
+        return null;
+    }
+
+
 }
 
 module.exports = Driver;

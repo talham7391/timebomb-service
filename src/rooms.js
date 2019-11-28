@@ -59,12 +59,17 @@ function newRoom(id, nsp) {
             socket.emit("info", driver.getPlayerInfo(name));
         });
 
-        socket.on("snip-wire", idx => {
+        socket.on("snip-wire", (idx, callback) => {
             try {
-                driver.snipWire(name, idx);
+                callback(null, driver.snipWire(name, idx));
                 nsp.emit("wire-snipped");
+
+                const winner = driver.getWinningSideIfGameOver();
+                if (winner != null) {
+                    nsp.emit("game-over", winner);
+                }
             } catch(err) {
-                // send err to that socket
+                callback(err, null);
             }
         });
 
