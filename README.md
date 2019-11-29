@@ -1,4 +1,12 @@
-# timebomb-service
+<br/>
+<div align="center">
+	<img src="https://github.com/talham7391/timebomb-service/blob/master/docs/images/logo.png"/>
+</div>
+<br/>
+
+# Timebomb Service
+
+Web App: https://github.com/talham7391/timebomb-web
 
 **Note:** this service was developed using:
 * node (v12.13.0)
