@@ -1,6 +1,6 @@
 <br/>
 <div align="center">
-	<img src="https://github.com/talham7391/timebomb-service/blob/master/docs/images/logo.png"/>
+	<img src="https://i.imgur.com/h7fjISK.png"/>
 </div>
 <br/>
 
